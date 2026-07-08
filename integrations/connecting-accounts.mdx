@@ -1,0 +1,103 @@
+---
+title: "How to Connect and Manage Your Integrations"
+sidebarTitle: "Connecting Accounts"
+description: "Step-by-step guide to connecting, disconnecting, and managing third-party integrations in Hermes Agent settings."
+---
+
+All of your integrations are managed from the **Connections** screen inside Hermes Agent's settings. Each service shows its current status — either **Connected** or available to connect — so you always have a clear picture of what the agent can and can't act on. You can connect accounts at any time: before creating a task, during a task when the agent asks for access, or after the fact to expand what your agent can do in the future.
+
+<Tip>
+  Proactively connect the accounts you use most often — Gmail, Google Calendar, Slack — before you start creating tasks. The agent won't need to pause and ask for authorization mid-task, so everything runs faster and more smoothly.
+</Tip>
+
+## Connecting an account
+
+<Steps>
+  <Step title="Open Settings">
+    Tap the **gear icon** in the top-left corner of the main screen to open Settings.
+  </Step>
+  <Step title="Tap Connections">
+    Scroll down and tap **Connections** to see the full list of available integrations.
+  </Step>
+  <Step title="Find the service">
+    Locate the service you want to connect — for example, **Gmail** — and tap its row.
+  </Step>
+  <Step title="Tap Connect">
+    Tap the **Connect** button next to the service name.
+  </Step>
+  <Step title="Complete the OAuth flow">
+    A browser sheet or in-app web view opens. Sign in to your account and grant Hermes Agent the requested permissions.
+  </Step>
+  <Step title="Confirm the connection">
+    After you approve, the sheet closes and the row flips to **Connected**. The agent can now use this service on your behalf.
+  </Step>
+</Steps>
+
+## Connecting during a task
+
+If you didn't pre-connect a service and the agent needs it to complete your task, it will pause and prompt you right in the task detail view — no need to hunt through settings.
+
+1. The agent stops at the step that needs authorization and displays a **Connect your account** button, along with an explanation of which service it needs and why.
+2. Tap **Connect your account** to launch the OAuth flow for that service.
+3. Sign in and grant permission in the browser sheet that opens.
+4. Return to Hermes Agent, then tap **Do it** again.
+
+The agent resumes from exactly where it stopped, using your newly connected account to complete the task.
+
+## Disconnecting an account
+
+<Steps>
+  <Step title="Open Settings → Connections">
+    Tap the **gear icon** to open Settings, then tap **Connections**.
+  </Step>
+  <Step title="Find the connected service">
+    Locate the service you want to disconnect — it will show a **Connected** status.
+  </Step>
+  <Step title="Tap Disconnect">
+    Tap **Disconnect** next to the service name.
+  </Step>
+  <Step title="Confirm">
+    Confirm the action when prompted. The token is immediately revoked and the row returns to its unconnected state. The agent will no longer have access to this service.
+  </Step>
+</Steps>
+
+<Note>
+  If a service row shows a warning indicator, or if your tasks are failing with an authentication error, try disconnecting and reconnecting that account. This refreshes the access token and usually resolves the issue.
+</Note>
+
+## Available connections
+
+### Google Workspace
+- **Gmail** — Send, read, and search email
+- **Google Calendar** — Create and manage events and availability
+- **Google Drive** — Browse, upload, and access files
+- **Google Docs** — Create, read, and edit documents
+- **Google Sheets** — Read and write spreadsheet data
+
+### Communication
+- **Slack** — Send messages, post to channels, and manage DMs
+
+### Developer
+- **GitHub** — Open issues, create pull requests, and browse repositories
+
+### Productivity
+- **Notion** — Create and update pages and databases
+- **Linear** — Manage issues, projects, and cycles
+
+### Social
+- **LinkedIn** — Send messages and connection requests
+- **Reddit** — Browse posts and interact with communities
+- **Twitter / X** — Post and interact with your timeline
+
+### Design
+- **Figma** — Access and inspect design files and components
+
+### Shopping
+- **Instacart** — Manage your cart and grocery orders
+
+### API-key based
+- **Hunter.io** — Enter your Hunter.io API key from the service's developer dashboard instead of completing an OAuth flow
+
+## In BYO Connector mode
+
+When you're running Hermes Agent in **BYO Connector** mode — connected to your own self-hosted Hermes gateway — OAuth connections are managed by your Hermes setup, not by Hermes Agent itself. The Connections screen in the app will reflect the integrations configured on your gateway. Refer to the BYO Connector documentation for details on managing credentials in that mode.

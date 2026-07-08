@@ -1,0 +1,88 @@
+{
+  "projectType": "saas",
+  "projectName": "Hermes Agent",
+  "projectDescription": "Hermes Agent is an iOS app that lets you create tasks in plain language and hand them to a personal AI agent that executes them in real time — sending emails, managing calendars, searching the web, and more.",
+  "theme": "luma",
+  "primaryColor": "#909090",
+  "lightColor": "#222222",
+  "darkColor": "#cacaca",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "how-it-works"
+            ]
+          },
+          {
+            "group": "Using the App",
+            "pages": [
+              "using-the-app/creating-tasks",
+              "using-the-app/task-detail",
+              "using-the-app/scheduled-tasks",
+              "using-the-app/memory-passbook"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/overview",
+              "integrations/connecting-accounts",
+              "integrations/ai-models"
+            ]
+          },
+          {
+            "group": "Deployment",
+            "pages": [
+              "deployment/hosted",
+              "deployment/byo-connector",
+              "deployment/self-host",
+              "deployment/configuration"
+            ]
+          },
+          {
+            "group": "Security & Privacy",
+            "pages": [
+              "security/trust-model",
+              "security/faq"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Natural language task creation — type or speak tasks; the AI rewrites and executes them automatically",
+    "Real-time agent activity — watch the agent's thinking and tool calls stream live in the app",
+    "Approval and interaction flows — the agent pauses and asks before sending emails, creating events, or taking irreversible actions",
+    "Scheduled automations (cron jobs) — create recurring tasks that run on a schedule",
+    "Agent memory — the agent learns preferences and facts across runs; view and manage memories in the Passbook",
+    "Third-party integrations — connect Gmail, Google Calendar, Drive, Docs, Sheets, GitHub, Slack, Notion, Linear, and more via OAuth",
+    "Multiple AI models — choose from OpenAI, Anthropic, Google Gemini, DeepSeek, Qwen, and others via OpenRouter",
+    "Live Activity & Dynamic Island — task progress visible on the Lock Screen and in the Dynamic Island",
+    "Push notifications — get notified when a task finishes or needs your input",
+    "BYO Hermes connector — use Doit as an iOS front-end over your own self-hosted Hermes gateway"
+  ],
+  "publicApiSurface": [
+    "iOS app: Sign in with Apple authentication",
+    "iOS app: Invite code redemption and agent provisioning",
+    "iOS app: Task creation (text, voice, photo)",
+    "iOS app: Task list with Todo / Scheduled / Done (Passbook) tabs",
+    "iOS app: Task detail with live activity feed and artifact cards",
+    "iOS app: Interaction/approval cards (Send / Rewrite / Cancel)",
+    "iOS app: Scheduled task (cron job) creation and management",
+    "iOS app: Settings > Model — AI model selection",
+    "iOS app: Settings > Connections — OAuth integration management",
+    "iOS app: Settings > Memory — view, add, edit, pin, and delete agent memories",
+    "BYO Connector CLI: python3 -m runner.connector --supabase-url --supabase-anon-key --connector-token --hermes-url --hermes-api-key",
+    "BYO Connector installer script: install-byo-connector.sh",
+    "Supabase Edge Function: integrations (Composio OAuth)",
+    "Runner environment config: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, HERMES_MODEL_DEFAULT, MAX_CONCURRENT_RUNS, COMPOSIO_API_KEY, APNS_KEY_PATH, BYO_CONNECTOR_MODE",
+    "iOS xcconfig: DOIT_SUPABASE_URL, DOIT_SUPABASE_ANON_KEY, DOIT_BUNDLE_ID, DOIT_DEVELOPMENT_TEAM"
+  ]
+}

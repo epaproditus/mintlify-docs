@@ -1,0 +1,82 @@
+---
+title: "Choosing an AI Model for Your Agent"
+sidebarTitle: "AI Models"
+description: "Switch the AI model powering your Hermes Agent between OpenAI, Anthropic, Google Gemini, DeepSeek, and more. Choose based on speed, cost, and capability."
+---
+
+Hermes Agent lets you choose the AI model that powers your personal agent. Every model has its own tradeoffs between speed, cost, and raw capability — a lightweight model can zip through a quick email draft in seconds, while a more powerful model can reason through complex multi-step research tasks with greater accuracy. Switching models is instant and takes effect on your very next task, so you can adjust freely depending on what you're working on.
+
+<Note>
+  The default model is **Google Gemini 2.5 Flash**, which sits in the Balanced tier — a great starting point for most everyday tasks.
+</Note>
+
+## How to change your model
+
+<Steps>
+  <Step title="Open Settings">
+    Tap the **gear icon** in the top-left corner of the main screen to open Settings.
+  </Step>
+  <Step title="Tap Model">
+    Tap **Model** to open the model selector.
+  </Step>
+  <Step title="Browse available models">
+    Scroll through the list of available models. Each one displays a tier label — **$**, **$$**, **$$$**, or a lock icon — so you can quickly gauge its cost and capability level.
+  </Step>
+  <Step title="Select a model">
+    Tap a model to select it. The change takes effect immediately on your next task — any task currently in progress continues with the model it started on.
+  </Step>
+</Steps>
+
+## Model tiers
+
+| Tier | Label | Best for |
+|------|-------|----------|
+| Budget | $ | Quick, lightweight tasks; lowest token cost |
+| Balanced | $$ | Most everyday tasks; good balance of speed and quality |
+| Strong | $$$ | Complex multi-step tasks; best reasoning and accuracy |
+| Premium | 🔒 (invite-only) | Reserved for select users |
+
+## Available models
+
+Model availability may change as new versions are released and older ones are retired. The models below reflect what's currently available in the app.
+
+**OpenAI**
+- GPT-4o
+- GPT-4o mini
+
+**Anthropic**
+- Claude 3.5 Sonnet
+- Claude 3 Haiku
+
+**Google**
+- Gemini 2.5 Flash *(default)*
+- Gemini 1.5 Pro
+
+**DeepSeek**
+- DeepSeek R1
+- DeepSeek V3
+
+**Qwen / Other**
+- Qwen 2.5
+- Kimi (Moonshot)
+
+## Which model should I use?
+
+<AccordionGroup>
+  <Accordion title="For quick emails and calendar tasks">
+    A **Budget** or **Balanced** model is the right choice. Tasks like drafting a short email, scheduling a meeting, or checking your calendar don't require heavy reasoning — a lighter model will complete them quickly and at lower cost. Try **GPT-4o mini**, **Claude 3 Haiku**, or the default **Gemini 2.5 Flash**.
+  </Accordion>
+  <Accordion title="For complex research or multi-step tasks">
+    Reach for a **Strong** model. Tasks that involve synthesizing information from multiple sources, making nuanced decisions across many steps, or handling long context windows benefit significantly from more capable models. **Claude 3.5 Sonnet** or **GPT-4o** are good picks here.
+  </Accordion>
+  <Accordion title="For coding tasks">
+    Use a **Strong** model. Coding tasks — writing scripts, reviewing code, opening pull requests with meaningful commit messages — require precise reasoning and familiarity with syntax. **Claude 3.5 Sonnet** and **GPT-4o** consistently perform well on coding work.
+  </Accordion>
+  <Accordion title="For fast daily automations">
+    Stick with a **Budget** tier model. If you're running the same lightweight automations repeatedly — sending a daily standup message, logging a task to Notion, or checking for new emails — a budget model keeps costs low without any noticeable drop in quality for simple, well-defined actions.
+  </Accordion>
+</AccordionGroup>
+
+## BYO Connector mode
+
+When you're running Hermes Agent connected to your own self-hosted Hermes gateway, the model is determined by your Hermes server configuration — not by the in-app model selector. In this mode, the **Model** setting in the app is disabled and will reflect whichever model your gateway is configured to use. See the BYO Connector documentation for details on changing the model in that setup.

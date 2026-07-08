@@ -1,0 +1,107 @@
+---
+title: "Scheduled Tasks: Automate Recurring Work with AI"
+sidebarTitle: "Scheduled Tasks"
+description: "Create and manage recurring AI-powered automations. Schedule the agent to run daily, weekly, or on a custom cron expression — no code required."
+---
+
+Scheduled tasks turn one-time agent runs into fully automated routines. Instead of manually triggering the same task every morning or every Monday, you describe the automation once and Hermes Agent handles the rest — triaging your inbox, preparing your standup notes, generating weekly summaries, and more — on exactly the schedule you set, with no code required.
+
+## Creating a scheduled task
+
+<Steps>
+  <Step title="Open the Scheduled tab">
+    On the main task list screen, swipe left to the **Scheduled** tab. This is where all your recurring automations live.
+  </Step>
+  <Step title="Tap + and describe the automation">
+    Tap the **+** button and describe what you want to automate in plain language. Be sure to include the timing:
+
+    - `Every Monday morning, summarize my unread emails and send me a digest`
+    - `At 8 AM every day, check my calendar and remind me of any meetings before noon`
+    - `On the first of every month, pull my credit card transactions and categorize them`
+
+    You can also use voice input — tap the microphone and speak the automation.
+  </Step>
+  <Step title="Review the configured schedule">
+    The agent reads your description, extracts the intended schedule, and configures the job automatically. Before saving, you'll see a summary showing:
+
+    - The **schedule** (e.g., "Every Monday at 9 AM")
+    - The **prompt** it will run each time
+
+    Edit either field if you want to adjust anything, then tap **Save**.
+  </Step>
+  <Step title="Confirm the job is scheduled">
+    The automation appears in the Scheduled grid showing its name, schedule pill (e.g., "Daily 8 AM"), and the **next run time**. The agent will execute it automatically at the scheduled time — you don't need to be in the app.
+  </Step>
+</Steps>
+
+## Suggested automations
+
+If you're not sure where to start, the Scheduled tab displays a **suggestions carousel** at the top with pre-built automations you can activate in one tap. Examples include:
+
+- **Morning inbox triage** — summarize overnight emails every day at 8 AM
+- **Weekly standup prep** — pull your tasks and calendar every Monday at 9 AM
+- **End-of-day summary** — recap what you accomplished each weekday at 5 PM
+- **Monthly expense summary** — categorize transactions on the first of every month
+- **Weekly news digest** — summarize headlines in your areas of interest every Sunday evening
+
+Tapping a suggestion pre-fills the composer with a polished prompt and a sensible default schedule. Review and save to activate it.
+
+<Tip>
+  The best candidates for scheduled tasks are **recurring actions with a predictable pattern**: things you do every day or week, tasks that pull from a consistent data source (your inbox, your calendar, a website), and reminders you always forget to set manually. If you've run the same task manually more than twice, it's worth automating.
+</Tip>
+
+## Managing scheduled tasks
+
+Tap any job in the Scheduled grid to open its detail view. The detail view shows:
+
+- **Job name** — the title the agent generated (editable)
+- **Schedule pill** — the human-readable recurrence (e.g., "Daily 8 AM", "Every Monday 9 AM")
+- **State badge** — the current status of the job
+
+| State | Meaning |
+|-------|---------|
+| **Scheduled** | Active and waiting for the next run time |
+| **Running** | Currently executing a scheduled run |
+| **Paused** | Temporarily disabled — won't run until resumed |
+| **Configuring** | Agent is still setting up the job |
+| **Needs input** | Agent is paused mid-run and waiting for your response |
+
+- **Next run** — the date and time of the next scheduled execution
+- **Last run** — when the job last ran and whether it succeeded
+
+### Pause and resume
+
+Toggle the switch on the job card in the grid, or tap **Pause** / **Resume** in the detail view. Pausing a job does not delete it — it simply skips all future runs until you resume.
+
+### Reconfigure
+
+To change the schedule or update the prompt, type a message in the detail view's chat input. For example:
+
+- `Change this to run at 9 AM instead of 8 AM`
+- `Also include Slack messages in the daily digest`
+- `Switch this from daily to every weekday`
+
+The agent updates the job configuration and confirms the change.
+
+### Delete
+
+Swipe left on a job card in the Scheduled grid and tap **Delete**, or open the detail view and tap the **Delete** button in the top-right menu. Deleting a job is permanent — the agent will stop all future runs immediately.
+
+## Schedule examples
+
+| Schedule | Description |
+|----------|-------------|
+| Daily at 8 AM | Morning inbox triage |
+| Every Monday at 9 AM | Weekly team standup prep |
+| Every weekday at 5 PM | End-of-day task summary |
+| Every Sunday at 7 PM | Weekly news and project digest |
+| First day of the month | Monthly expense summary |
+| Every Friday at 4 PM | Weekly wins and blockers recap |
+
+## Notifications for scheduled runs
+
+When a scheduled task finishes, Hermes Agent sends a **push notification** summarizing the result — for example, "Morning digest ready: 12 emails, 2 meetings before noon."
+
+If the agent is blocked mid-run and needs your input, you'll receive a **Needs input** notification. Tap it to open the task detail and respond — the agent resumes as soon as you reply.
+
+Make sure Hermes Agent has notification permissions enabled in **Settings → Notifications** on your iPhone so you don't miss scheduled results.

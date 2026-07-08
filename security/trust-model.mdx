@@ -1,0 +1,61 @@
+---
+title: "Privacy and Security: How Hermes Agent Handles Your Data"
+sidebarTitle: "Trust Model"
+description: "Understand how Hermes Agent isolates your data, what the operator can and cannot see, and how to choose the deployment mode that matches your privacy requirements."
+---
+
+Hermes Agent is designed with user isolation and privacy minimization in mind. Every deployment mode stores your data differently, involves different parties, and grants different levels of visibility to the operator. Understanding these trade-offs helps you choose the setup that best matches your requirements — from the convenience of fully managed hosting to the complete control of self-hosting every component yourself.
+
+## Deployment modes and privacy
+
+| Mode | Who controls execution | Who can see task data | Best for |
+|------|------------------------|-----------------------|----------|
+| Hosted | Hermes Agent operator | Operator (aggregate/anonymized by default) | Most users; easy setup |
+| BYO Connector | You (your Hermes) | Hosted control plane operator (task state only) | Privacy-conscious users with a VPS |
+| Self-Host | You (everything) | Only you | Maximum data control |
+
+## Hosted mode
+
+In hosted mode, your tasks, memories, and artifacts are user-isolated through Supabase row-level security (RLS). RLS policies ensure that other users cannot read your data through the app — every query is scoped to your authenticated identity.
+
+The hosted runner must read task content to execute work. It drives Hermes to perform the actual actions you requested, which means the execution environment has access to your task prompts and any context the agent needs to complete them.
+
+Routine operator tooling operates on aggregate and anonymized data. Operator dashboards surface task statuses, timestamps, error categories, and token counts — **not** your task prompts, email content, calendar entries, or memory titles. Raw task content is not exposed in operator dashboards by default.
+
+<Note>
+  Hosted mode is privacy-minimized but not end-to-end encrypted. If you need the operator to have zero visibility into task content, use self-host.
+</Note>
+
+## BYO Connector mode
+
+In BYO Connector mode, your Hermes instance runs on your own infrastructure. Execution and profile files stay on your machines, so the actual work the agent performs never passes through operator-controlled servers.
+
+Task state — including status updates, activity steps, and artifacts — is still stored in the hosted control plane, which the operator can access. However, your model API keys, OAuth tokens, memory files, and tool configurations all remain on your server and are never transmitted to the hosted control plane.
+
+This mode moves execution out of the operator's hands but does not remove task state from the hosted environment. It's the right choice if you want local execution privacy without taking on the full burden of self-hosting your own control plane.
+
+## Self-host mode
+
+In self-host mode, you control both the control plane (your own Supabase project) and the execution unit (your own runner and Hermes instance). The operator has no access to your data at any layer — there is no shared infrastructure between your deployment and the hosted service.
+
+Self-hosting requires more setup: you'll configure your own Supabase project, deploy the runner, wire up APNs, and maintain the stack over time. In exchange, you get the strongest available privacy guarantee — your task content, memories, and artifacts never leave infrastructure you own and operate.
+
+## What's never in the iOS app
+
+<Warning>
+  The following secrets must always remain server-side. They are never embedded in the iOS app binary and must never be committed to source control or shared with end users:
+
+  - **Supabase service-role key** — grants unrestricted database access, bypassing all RLS policies
+  - **APNs private key** — used to send push notifications; exposure allows notification spoofing
+  - **Composio API key** — grants access to all connected integrations
+  - **Model provider keys** — grants billable access to your LLM provider accounts
+  - **Hermes profile configuration** — contains tool definitions and may reference sensitive endpoints
+
+  The only backend value embedded in the app is the **public Supabase anon key**, which is RLS-scoped and safe to include in client applications.
+</Warning>
+
+## Reporting security issues
+
+If you discover a vulnerability in Hermes Agent — whether in the iOS app, the hosted service, or any open-source component — please follow responsible disclosure practices. Do not open a public GitHub issue for security vulnerabilities, as this exposes users before a fix is available.
+
+Instead, use the private reporting process documented in the repository's [SECURITY.md](https://github.com/heymessenger/hermes-agent/blob/main/SECURITY.md). That file describes how to submit a confidential report, what information to include, and what response timeline to expect. We aim to acknowledge reports within 48 hours and provide a resolution timeline within 5 business days.

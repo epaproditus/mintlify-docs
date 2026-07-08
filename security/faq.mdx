@@ -1,0 +1,117 @@
+---
+title: "Hermes Agent FAQ: Common Questions Answered"
+sidebarTitle: "FAQ"
+description: "Answers to common questions about Hermes Agent: invite codes, supported devices, task limits, integration issues, memory, and troubleshooting."
+---
+
+This page covers the most common questions users ask about Hermes Agent — from getting access and setting up the app to troubleshooting integrations, managing memory, and running the BYO Connector. If you don't find your answer here, reach out to support from within the app.
+
+## Getting started
+
+<Accordion title="How do I get an invite code?">
+  The app is invite-only while the service scales. Visit the waitlist link shown on the app's welcome screen to request access. You can also ask someone who already has access to share an invite with you — existing users receive a small number of invite codes they can pass along.
+</Accordion>
+
+<Accordion title="What devices are supported?">
+  Hermes Agent runs on any iPhone with iOS 16 or later. Push notifications, Live Activity indicators, and Dynamic Island updates require a real physical device — these features are not available in the iOS Simulator.
+</Accordion>
+
+<Accordion title="Do I need an Apple ID?">
+  In hosted mode, yes. Sign in with Apple is used to create and authenticate your account. In BYO Connector mode, no Apple ID is required — you receive an anonymous identity tied to your connector token instead.
+</Accordion>
+
+<Accordion title="How long does agent provisioning take?">
+  Provisioning usually completes in under a minute. You'll see a progress screen while the agent sets up your profile. If provisioning takes longer than 3 minutes without completing, contact support from the app's Help menu.
+</Accordion>
+
+## Using the app
+
+<Accordion title="Why is my task stuck on 'Preparing'?">
+  The preparation pass rewrites your task into a structured plan and may ask a clarifying question before execution begins. Check the task detail view — if the agent needs more information, you'll see a message asking for it. Reply to that message to continue.
+</Accordion>
+
+<Accordion title="Why does the agent stop and say 'Needs you'?">
+  The agent pauses before irreversible actions — such as sending an email, creating a calendar event, or posting a message — to get your explicit approval. Open the task detail and review the approval card. Tap **Approve** to let the action proceed, or **Reject** to skip it.
+</Accordion>
+
+<Accordion title="Can I cancel a task that's running?">
+  Yes. Open the task detail and tap **Cancel**. The cancel button is available on the interaction card while the agent is active, or in the task header. The agent stops immediately and the task moves to the Cancelled state.
+</Accordion>
+
+<Accordion title="Why isn't my task using the right account?">
+  Make sure the correct integration is connected in **Settings → Connections**. If your task needs Gmail but Gmail isn't connected, the agent will pause and ask you to connect it before continuing. Verify the connected account email matches the account you want the agent to use.
+</Accordion>
+
+<Accordion title="How do I send a follow-up message after a task finishes?">
+  Open the task detail and type your message in the chat composer at the bottom of the screen. The agent will read your follow-up in the context of the completed task and respond accordingly. You can ask questions, request changes, or kick off related work from the same thread.
+</Accordion>
+
+## Integrations
+
+<Accordion title="My integration shows as connected but the agent says it can't access my account.">
+  Try disconnecting and reconnecting the integration in **Settings → Connections** to refresh the OAuth token. If the issue persists, the service may have revoked access on its end — this commonly happens after a password change, a security alert, or when too many active sessions are detected.
+</Accordion>
+
+<Accordion title="Can I connect multiple Google accounts?">
+  Currently, one account per service type is supported. To switch to a different Google account, disconnect the existing one in **Settings → Connections** and then connect the new one. The agent will use the newly connected account for all future Google-related tasks.
+</Accordion>
+
+<Accordion title="The app says 'Couldn't load integrations'.">
+  This is usually a temporary connectivity issue. Pull to refresh in **Settings → Connections** to retry. If the error persists, check that your device has an active internet connection. You can also try force-quitting and relaunching the app.
+</Accordion>
+
+## Memory
+
+<Accordion title="Why did the agent forget something it learned before?">
+  Open **Settings → Memory** to see everything the agent has stored about you. If a fact is missing, you can add it manually using the **+** button and pin it so the agent always includes it. Pinned memories are injected before every task, so they're never overlooked.
+</Accordion>
+
+<Accordion title="Memory shows 'Sync failed'.">
+  This usually means the memory file is approaching its size limit. Try shortening existing entries or deleting ones you no longer need. You can edit and delete individual memory items directly in **Settings → Memory**. After cleaning up, pull to refresh to trigger a re-sync.
+</Accordion>
+
+<Accordion title="Can I prevent the agent from saving certain information?">
+  Yes. Toggle off **Automatic memory learning** in **Settings → Memory** to stop the agent from adding new facts on its own — it will only use what's already there or what you add manually. You can also write a custom instruction (for example, "Never save email addresses or phone numbers") and pin it to enforce a persistent rule.
+</Accordion>
+
+## Scheduled tasks
+
+<Accordion title="My scheduled task didn't run.">
+  Open the task detail to see any error information logged for the missed run. The most common causes are: the required integration is no longer connected, or the agent encountered a decision point that needed your input and paused instead of completing the run automatically.
+</Accordion>
+
+<Accordion title="Can I run a scheduled task immediately?">
+  Yes. Open the task detail and tap **Run now**. This triggers the task immediately without waiting for the next scheduled time. The task's regular schedule is not affected.
+</Accordion>
+
+## BYO Connector
+
+<Accordion title="The app stays on 'Waiting for connector'.">
+  Verify that the connector process is still running on your server and that the token in your startup command exactly matches the token displayed in the app. Check the connector logs for errors:
+
+  ```bash
+  journalctl -u doit-connector -n 50
+  ```
+
+  Common causes include the process having exited, a token mismatch, or a firewall blocking the outbound connection.
+</Accordion>
+
+<Accordion title="My tasks aren't executing in BYO mode.">
+  Confirm that `--hermes-url` is set to a reachable address and that Hermes is running. You can test reachability directly from your server:
+
+  ```bash
+  curl http://127.0.0.1:8643/health
+  ```
+
+  If your Hermes gateway requires an API key, make sure `--hermes-api-key` is set correctly in your connector startup command. Also check the connector logs for any authorization errors returned by Hermes.
+</Accordion>
+
+## Notifications
+
+<Accordion title="I'm not getting push notifications.">
+  First, make sure you allowed notifications when the app first asked. To check, go to **iPhone Settings → Notifications → Hermes Agent** and confirm that notifications are enabled and that the alert style is set to **Banners** or **Alerts**. Also verify that Focus modes or Do Not Disturb aren't silencing the app.
+</Accordion>
+
+<Accordion title="I got a notification but tapping it doesn't open the right task.">
+  Pull to refresh the task list after the app opens. If the task still doesn't appear, it may have been deleted or the notification may be stale. Check the **All Tasks** view to confirm the task's current state.
+</Accordion>

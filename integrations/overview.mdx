@@ -1,0 +1,84 @@
+---
+title: "Integrations: Connect Your Apps to Hermes Agent"
+sidebarTitle: "Overview"
+description: "Connect Gmail, Google Calendar, GitHub, Slack, Notion, and 15+ other services so Hermes Agent can take real actions on your behalf."
+---
+
+Integrations are what transform Hermes Agent from a smart assistant into a true personal agent. Without connected accounts, the agent can research topics, draft text, and plan — but it cannot actually send an email, create a calendar event, or post to Slack on your behalf. When you connect your apps, the agent gains the ability to take real-world actions: reading your inbox, scheduling meetings, opening pull requests, updating Notion pages, and more. The more accounts you connect, the more your agent can do.
+
+## Available integrations
+
+<CardGroup cols={3}>
+  <Card title="Gmail" icon="envelope">
+    Send, read, search, and organize your email.
+  </Card>
+  <Card title="Google Calendar" icon="calendar">
+    Create, update, and check events and availability.
+  </Card>
+  <Card title="Google Drive" icon="folder-open">
+    Access and manage files stored in Drive.
+  </Card>
+  <Card title="Google Docs" icon="file-lines">
+    Create, read, and edit documents.
+  </Card>
+  <Card title="Google Sheets" icon="table">
+    Read and write spreadsheet data.
+  </Card>
+  <Card title="Slack" icon="slack">
+    Send messages and interact with channels and DMs.
+  </Card>
+  <Card title="GitHub" icon="github">
+    Open issues, create pull requests, and browse repos.
+  </Card>
+  <Card title="Notion" icon="file">
+    Create and update pages and databases.
+  </Card>
+  <Card title="Linear" icon="bolt">
+    Manage issues, projects, and cycles.
+  </Card>
+  <Card title="LinkedIn" icon="linkedin">
+    Draft and send connection requests or messages.
+  </Card>
+  <Card title="Reddit" icon="reddit">
+    Browse posts and interact with communities.
+  </Card>
+  <Card title="Twitter / X" icon="twitter">
+    Post tweets and interact with your timeline.
+  </Card>
+  <Card title="Figma" icon="pen-nib">
+    Access and inspect design files and components.
+  </Card>
+  <Card title="Instacart" icon="cart-shopping">
+    Add items to your cart and manage grocery orders.
+  </Card>
+  <Card title="Hunter.io" icon="key">
+    Look up professional email addresses using your API key.
+  </Card>
+</CardGroup>
+
+## OAuth vs API key integrations
+
+Most integrations use **OAuth** — an industry-standard authorization flow where you tap **Connect**, a browser or in-app sheet opens, you sign in to the service and grant Hermes Agent the permissions it needs, and you're done. Your credentials are never stored by Hermes Agent directly; only a secure access token is saved.
+
+A small number of services — such as Hunter.io — use an **API key** instead. For these, you paste a key from the service's own developer dashboard into the connection settings. The key is stored securely on your device and sent only to that service when the agent needs it.
+
+## How integrations are used
+
+You don't need to tell the agent which integration to use — it figures that out automatically based on what you ask. If your task says "send an email to Jordan with the quarterly report attached," the agent knows to use Gmail. If you ask it to "find a time and create a calendar invite for next Tuesday," it reaches for Google Calendar. You can connect accounts ahead of time or let the agent prompt you when it needs access for a specific task.
+
+Pre-connecting your most-used services is the best way to keep tasks flowing without interruption. The agent will never attempt to use a service you haven't authorized.
+
+## The "Needs you" flow
+
+If the agent reaches a step that requires a connection you haven't set up yet, it pauses your task and surfaces an inline **Connect your account** button right in the task detail view. You don't need to leave the task or dig through settings:
+
+1. The agent stops and explains which service it needs.
+2. Tap **Connect your account** to launch the OAuth flow.
+3. Sign in and grant permission in the browser sheet that opens.
+4. Return to Hermes Agent — then tap **Do it** again.
+
+The agent picks up exactly where it left off, using your newly connected account to complete the step it was waiting on.
+
+---
+
+Ready to get connected? See the step-by-step setup guide in [Connecting Accounts](/integrations/connecting-accounts).

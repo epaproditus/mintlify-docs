@@ -1,0 +1,63 @@
+---
+title: "Self-Hosting Hermes Agent: Full Control Deployment"
+sidebarTitle: "Self-Host"
+description: "Run your own complete Hermes Agent deployment. Control the Supabase backend, runner, Hermes profiles, and iOS build for maximum data privacy."
+---
+
+Self-hosting gives you complete ownership of the entire Hermes Agent stack. You control both the control plane — Supabase auth, database, Realtime, and Edge Functions — and the execution unit, which is the runner process paired with your Hermes gateway. This mode is designed for operators who need full data sovereignty, want to use their own model provider accounts end-to-end, or are building on top of Hermes Agent for their own users.
+
+## Required accounts
+
+Before you begin, make sure you have access to the following services:
+
+| Service | Purpose |
+|---|---|
+| Apple Developer | Sign in with Apple, bundle IDs, app signing, APNs |
+| Supabase | Auth, database, realtime, storage, Edge Functions |
+| Cloud VM (e.g., Hetzner, DigitalOcean) | Runner + Hermes profiles |
+| Nous Portal / OpenRouter | LLM access for agent runs |
+| Composio | OAuth integrations (Gmail, Calendar, etc.) |
+| Browserbase | Managed browser sessions for web tasks |
+
+## Setup overview
+
+<Steps>
+  <Step title="Configure iOS build">
+    Copy `ios/doit/Config/Local.example.xcconfig` to `Local.xcconfig` in the same directory. Fill in your Supabase project URL, Supabase anon key, Apple Developer team ID, main app bundle identifier, and widget bundle identifier. This file is gitignored — never commit it.
+  </Step>
+  <Step title="Set up Supabase">
+    Create a new Supabase project and apply the database migrations from the repo. Enable **Sign in with Apple** in the Supabase Auth providers settings. Deploy the `integrations` Edge Function from `supabase/functions/integrations`, then add your `COMPOSIO_API_KEY` as a Supabase secret so the function can reach Composio.
+  </Step>
+  <Step title="Provision a VM">
+    Spin up a cloud VM (Ubuntu 22.04 LTS recommended) with at least 2 vCPUs and 4 GB of RAM. Install Hermes and configure your agent profiles by following `hermes/setup.md` in the repository. Note the Hermes listen address and API key — you will need them for the runner.
+  </Step>
+  <Step title="Configure the runner">
+    Copy `runner/.env.example` to `runner/.env`. Fill in the Supabase service role key, Composio API key, model provider keys (OpenRouter is the primary provider), and your Hermes URL and API key. See the [Configuration Reference](/deployment/configuration) for the full variable list.
+  </Step>
+  <Step title="Configure APNs">
+    In the Apple Developer portal, create an APNs auth key (`.p8` format) for your app's bundle ID. Copy the file to the runner machine and set `APNS_KEY_PATH`, `APNS_KEY_ID`, `APNS_TEAM_ID`, and `APNS_TOPIC` in `runner/.env`. Set `APNS_USE_SANDBOX=true` during development and `false` for production builds.
+  </Step>
+  <Step title="Build and deploy">
+    Open the Xcode workspace, select a real device as the build target (APNs does not work in the simulator), and build the app using your provisioning profile. On the server, start the runner with your process manager of choice (systemd, Docker, or `pm2`). Confirm the runner connects to Supabase and Hermes successfully before submitting your first task.
+  </Step>
+</Steps>
+
+<Warning>
+  **Never embed these secrets in the iOS app binary:**
+
+  - `SUPABASE_SERVICE_ROLE_KEY`
+  - `ADMIN_SECRET`
+  - APNs private key (`.p8`)
+  - Composio API key
+  - Model provider keys (OpenRouter, OpenAI, Anthropic)
+  - Browserbase API key
+  - Hermes profile `.env` files
+
+  The Supabase **anon key** is the only backend key that belongs in the iOS app — it is intentionally public and all access is gated by Row Level Security policies.
+</Warning>
+
+## Current limitations
+
+The Hermes Agent repo is built with Supabase as the control plane. Auth (Sign in with Apple JWT verification), row-level security policies, Realtime subscriptions, Storage buckets, and Edge Functions all depend on Supabase APIs. The runner database client is also written against the Supabase SDK. Replacing Supabase with an alternative backend would require substituting all of these layers simultaneously and is not officially supported at this time.
+
+For the full list of iOS xcconfig keys and runner environment variables, see the [Configuration Reference](/deployment/configuration).

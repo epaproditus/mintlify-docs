@@ -1,0 +1,114 @@
+---
+title: "Agent Memory and Passbook: What Your Agent Knows"
+sidebarTitle: "Memory & Passbook"
+description: "Manage what Hermes Agent remembers about you. View, add, edit, pin, and delete memories in the Passbook to improve task quality over time."
+---
+
+Hermes Agent builds a persistent memory of facts about you so it can do better work every time you use it. Your personal email address, your preferred writing tone, the name of your manager, your timezone — once the agent learns these things, it doesn't have to ask again. The **Passbook** is where all of that knowledge lives, and where you stay in control of what the agent knows.
+
+## Where to find Memory
+
+You can access your memories from two places:
+
+- **Settings** — tap the **gear icon** in the top-right corner of any screen, then select **Memory**
+- **Passbook tab** — tap the third tab (the bookmark icon) in the main tab bar at the bottom of the screen
+
+Both paths take you to the same Passbook view, which lists every memory entry the agent holds about you.
+
+## Memory types
+
+Your agent's memory is divided into two distinct files, each serving a different purpose.
+
+<Tabs>
+  <Tab title="About You (USER.md)">
+    This file stores **personal facts about you** — the kind of information that makes the agent feel like it knows you. Examples:
+
+    - `Personal email: you@example.com`
+    - `Full name: Jordan Rivera`
+    - `Timezone: America/New_York`
+    - `Preferred writing tone: concise and professional`
+    - `Manager: Priya Sharma (priya@company.com)`
+    - `Landlord: Tom Walsh (tom@realty.com)`
+
+    Entries in **About You** are things you might tell a personal assistant on their first day. The agent uses them to fill in gaps without asking you every time.
+  </Tab>
+  <Tab title="Agent Notes (MEMORY.md)">
+    This file stores **workflow facts and conventions** the agent has discovered while working on your tasks. Examples:
+
+    - `User prefers Gmail drafts to be reviewed before sending`
+    - `Default Google Calendar is "Personal"`
+    - `User's company uses Notion for documentation`
+    - `Weekly standup notes should be sent to the team Slack channel #eng-standup`
+
+    Entries in **Agent Notes** are things the agent figured out on its own — observations about your environment, tools, and habits that help it work more efficiently.
+  </Tab>
+</Tabs>
+
+## How memory is learned
+
+After each task, the agent reviews what happened and decides whether any new facts are worth saving. If it learned your landlord's email, noticed you prefer bullet-point summaries, or discovered your company's Slack workspace, it will add those facts to the appropriate memory file.
+
+When a memory is being saved, an **"Updating long-term memory"** step appears at the bottom of the task's activity feed. You can tap it to see exactly what was added or changed.
+
+The agent is conservative about what it saves — it won't store one-off details or information that's unlikely to be useful again. If it saves something incorrectly, you can edit or delete it at any time from the Passbook.
+
+## Memory sync status
+
+Each memory entry displays a status tag showing its current sync state.
+
+| Tag | Meaning |
+|-----|---------|
+| **Pinned** | You manually added this entry — it is always included before every task run |
+| **Learned** | The agent saved this automatically after a task |
+| **Syncing** | The entry is being saved to your profile right now |
+| **Sync failed** | The entry could not be saved — try shortening it or breaking it into smaller entries |
+
+<Note>
+  Memory entries sync to your profile **before each task run**, not in real time. Changes you make in the Passbook — edits, deletions, new entries — take effect the next time you start or schedule a task.
+</Note>
+
+## Managing memories
+
+In the Passbook, each memory entry has three actions available by tapping the entry or long-pressing it:
+
+- **Edit** — update the text of the entry. Useful if a fact has changed (new email address, new manager, etc.)
+- **Delete** — permanently remove the entry. The agent will no longer have access to this fact.
+- **Reject** — tell the agent the fact is incorrect. The agent marks it as rejected and avoids re-learning the same incorrect fact in the future.
+
+To add a new memory manually, tap the **+** button in the Passbook and type the fact you want the agent to know. Choose whether to add it to **About You** or **Agent Notes**, then tap **Save**.
+
+## Pinning memories
+
+Pinned memories are always staged at the start of every task run — the agent sees them before it even reads your task description. This guarantees the agent acts on those facts every single time, without relying on its own recall.
+
+Pin entries that are foundational and unlikely to change:
+
+- Your default email address
+- Your full name as it should appear in correspondence
+- Your timezone
+- Recurring contacts (manager, assistant, key clients)
+- Standing preferences ("Always ask before sending any email")
+
+To pin an entry, tap it in the Passbook and toggle **Pin this memory** on.
+
+<Tip>
+  As a starting point, pin at least three things: your **personal email address**, your **full name**, and the **name and email of anyone you contact regularly**. This prevents the agent from ever asking "Which email should I use?" or misaddressing a message.
+</Tip>
+
+## Automatic learning toggle
+
+If you prefer to manage your memory entirely by hand, you can turn off automatic memory extraction. Go to **Settings → Memory** and toggle off **Automatic learning**.
+
+With automatic learning off, the agent will still read and use any memories you've added manually, but it will never add new entries on its own after a task. You remain fully in control of everything in the Passbook.
+
+## Custom instructions
+
+In addition to individual memory entries, you can write **free-form rules** that govern how the agent behaves across all tasks. Go to **Settings → Memory → Custom Instructions** and type your rules in the text field. Examples:
+
+- `Always ask before sending any email, even if I've approved a draft`
+- `Use formal tone in all written communication`
+- `Never book anything that costs more than $200 without explicitly confirming with me`
+- `When summarizing emails, always use bullet points, not paragraphs`
+- `Address all outgoing emails from my work address, not my personal one`
+
+Custom instructions are injected at the start of every task, so they apply universally. They take precedence over inferred behavior — if you write a rule here, the agent will follow it even if past context might suggest otherwise.

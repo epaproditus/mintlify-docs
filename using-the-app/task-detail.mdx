@@ -1,0 +1,115 @@
+---
+title: "Task Detail View: Monitor and Control Agent Work"
+sidebarTitle: "Task Detail"
+description: "Understand the task detail view: live activity feed, artifact cards, approval flows, inline chat, and how to retry, cancel, or follow up on any task."
+---
+
+The task detail view is your window into everything the agent is doing on your behalf. Tap any task in your Recent grid to open it. From here you can watch the agent work step by step, review the artifacts it produces, approve or redirect actions before they're taken, and continue the conversation after the task finishes.
+
+## Status badges
+
+Every task displays a status badge at the top of the detail view. The badge updates in real time as the agent progresses.
+
+| Status | Meaning |
+|--------|---------|
+| **Preparing** | The agent is writing a plan and identifying the right tool or integration to use |
+| **Working…** | The agent is actively executing steps |
+| **Needs you** | The agent is paused and waiting for your approval or a piece of information |
+| **Done** | The task completed successfully |
+| **Failed** | Something went wrong — tap **Retry** to try again |
+| **Cancelled** | You or the agent stopped the task before it finished |
+
+## Live Activity feed
+
+The activity feed is the scrollable timeline in the center of the task detail view. It shows everything the agent has done and is currently doing.
+
+At the top of the feed, a **shimmer card** shows what the agent is doing right now — for example, "Searching Gmail for recent emails from landlord…" or "Drafting email body…". The shimmer animation indicates the step is in progress.
+
+Below the shimmer card, completed steps stack up as the agent finishes them. Each step shows the action taken and, where relevant, a summary of what was found or produced. Typical steps you might see include:
+
+- **Search Gmail** — queried your inbox with specific search terms
+- **Read thread** — opened and read a specific email conversation
+- **Draft email** — composed an email draft
+- **Send** — dispatched the email after your approval
+- **Search web** — ran a web search and summarized results
+- **Update memory** — saved a new fact to your long-term memory
+
+Tapping any completed step expands it to show the full details of what the agent did.
+
+## Artifact cards
+
+When the agent produces a concrete output — a draft, a link, a scheduled event — it surfaces the result as an **artifact card** in the activity feed. Each card type gives you a different way to interact with the result.
+
+<CardGroup cols={2}>
+  <Card title="🔗 Link" >
+    Opens a URL directly — a Google Doc, Sheet, Drive file, or any web resource the agent created or found. Tap to open in the in-app browser or the relevant app.
+  </Card>
+  <Card title="📧 Email">
+    Shows a drafted or sent email with the subject line, recipient(s), and full body. Tap to expand and read, or use the action buttons to edit before sending.
+  </Card>
+  <Card title="📅 Calendar Event">
+    Displays the event title, date and time, location, and attendee list. Tap to open in your calendar app or approve from within Hermes Agent.
+  </Card>
+  <Card title="📝 Text Result">
+    Plain text output — a summary, a script, a list, or any other written content the agent produced. Tap to copy or share.
+  </Card>
+  <Card title="🔊 Audio">
+    A playable text-to-speech audio clip with an expandable transcript below. Useful for spoken summaries or dictated messages.
+  </Card>
+  <Card title="🖼️ Image">
+    An inline photo or screenshot — either one you attached to the task or one the agent retrieved. Tap to view full screen.
+  </Card>
+  <Card title="📊 Options">
+    A set of comparison cards for structured choices — flight options, hotel picks, product comparisons. Each card shows the key details; tap one to select it or ask the agent to book it.
+  </Card>
+</CardGroup>
+
+## Approval and interaction flow
+
+Some actions are irreversible — sending an email, creating a calendar event, posting a message. The agent always pauses before taking one of these actions and waits for your explicit go-ahead.
+
+When the agent reaches an approval point, the task status changes to **Needs you** and an **interaction card** appears at the bottom of the activity feed. The card contains:
+
+- A preview of the draft (email body, event details, message text, etc.)
+- Action buttons: **Send**, **Rewrite**, and **Cancel**
+
+If the draft looks good, tap **Send** and the agent immediately executes the action and resumes any remaining steps.
+
+If you want changes, type your feedback in the message field — for example, "Make it shorter and more formal" or "Add a P.S. asking about the invoice" — then tap **Rewrite**. The agent produces a new draft and presents it for your review. You can go through as many rewrite cycles as you need.
+
+Tapping **Cancel** discards the draft and marks the task as cancelled. The agent will not attempt the action again unless you retry the task.
+
+<Note>
+  The agent will **never** send, post, book, or take any irreversible action without your explicit approval. Every potentially impactful action surfaces an interaction card first.
+</Note>
+
+## Inline chat
+
+The task detail view doubles as a conversation thread. After a task finishes (or at any point while it's running), you can type a follow-up message in the input bar at the bottom of the screen.
+
+Some things you can do with inline chat:
+
+- **Follow up on the result** — "Can you also CC my manager on that email?"
+- **Extend the task** — "Great, now do the same for the other five vendors on the list"
+- **Attach new photos** — tap the camera icon in the input bar to add images to the conversation
+- **Reference artifacts** — type `@` to mention a specific artifact from the task (e.g., `@Draft email`) and ask the agent to modify it
+
+The agent treats follow-up messages as continuations of the same task, so it has full context from everything that happened before.
+
+## Retrying failed tasks
+
+If a task reaches the **Failed** status, tap the **Retry** button that appears in the status area. The agent will restart the task from the beginning, using the same instructions and any context it gathered during the previous attempt.
+
+Common reasons a task might fail:
+
+- **Network error** — a temporary connectivity issue interrupted the agent mid-step
+- **Integration not connected** — the agent tried to use a service (e.g., Gmail, Google Calendar) that hasn't been authorized yet
+- **Unexpected content** — the agent encountered a page or response it couldn't parse
+
+If the same task fails repeatedly, check that the relevant integration is connected in **Settings → Integrations**, then retry.
+
+## Connecting an account inline
+
+If the agent needs an OAuth connection it doesn't have — for example, it needs to read your Gmail but you haven't connected Google yet — a **Connect your account** button appears directly in the chat thread at the point where the agent is blocked.
+
+Tap **Connect your account**, complete the OAuth authorization flow, and the agent automatically resumes the task from where it left off. You don't need to restart the task manually.

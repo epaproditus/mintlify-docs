@@ -1,0 +1,44 @@
+---
+title: "Hosted Hermes Agent: Managed Cloud Service"
+sidebarTitle: "Hosted"
+description: "Use Hermes Agent out of the box. The managed backend handles everything — your agent is provisioned automatically when you redeem your invite code."
+---
+
+Hosted mode is the easiest way to get started with Hermes Agent. Sign in, redeem your invite code, and your personal AI agent is ready to run tasks — no servers to provision, no API keys to juggle, no configuration required. Hosted mode is designed for individuals who want the full power of Hermes Agent without any of the operational overhead.
+
+## What's included
+
+- iOS app pre-configured for the managed backend
+- Automatic agent provisioning when you redeem your invite code
+- Managed auth, database, realtime updates, and push notifications
+- Operator-managed model provider keys (you choose the model, we manage the keys)
+- Managed OAuth connections via Composio
+- Managed browser automation for web tasks
+
+## Getting started
+
+Everything you need is in the [Quickstart](/quickstart). The flow is simple: sign in with Apple, enter your invite code, and connect the accounts you want your agent to act on. Your agent is provisioned automatically — no setup screens, no configuration files.
+
+## Privacy in hosted mode
+
+Your data is user-isolated: only you can access your tasks, memories, and artifacts through the app. No other user can read your data, and the managed backend enforces row-level security on every query.
+
+The hosted runner processes task content in order to execute work on your behalf. Routine platform telemetry uses aggregate and anonymized data by default. Task prompts are not surfaced in operator dashboards by default — your instructions stay between you and your agent.
+
+If you need stronger data isolation — for example, if you are running sensitive workflows or handling confidential information — consider [BYO Connector](/deployment/byo-connector) or [Self-Host](/deployment/self-host) mode instead.
+
+## Hosted vs other modes
+
+Use this table to decide which deployment mode fits your needs.
+
+| Feature | Hosted | BYO Connector | Self-Host |
+|---|---|---|---|
+| Setup effort | None | Moderate | High |
+| Model keys managed by | Hermes Agent | You (Hermes) | You |
+| OAuth connections | Hermes Agent | You (Hermes) | You |
+| Data control | Shared operator | Execution only | Full |
+| Custom integrations | Not supported | Via Hermes | Via Hermes |
+
+<Note>
+  The hosted app is currently invite-only while the service scales. If you don't have an invite code yet, join the waitlist from the app's launch screen.
+</Note>

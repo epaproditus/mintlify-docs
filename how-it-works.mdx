@@ -1,0 +1,102 @@
+---
+title: "How Hermes Agent Executes Your Tasks"
+sidebarTitle: "How It Works"
+description: "Understand the full lifecycle of a task: from natural-language input through preparation, execution, real-time streaming, approval flows, and push notification delivery."
+---
+
+When you hand a task to Hermes Agent, a lot happens between the moment you tap **Do it** and the moment you get a notification that it's done. Understanding that journey helps you write better tasks, know what to expect at each stage, and feel confident that nothing happens behind your back. This page walks through the complete lifecycle of a task from start to finish.
+
+<Note>
+  The agent never sends an email, creates a calendar event, posts a message, or takes any other irreversible action without your explicit approval first. Every consequential action pauses for your review.
+</Note>
+
+## Task lifecycle
+
+Every task moves through the same sequence of stages, whether it takes ten seconds or ten minutes.
+
+<Steps>
+  <Step title="You create the task">
+    You describe what you need done in plain language. You can type it out, dictate with your voice, or attach a photo for additional context. There's no special syntax — just say what you'd say to a capable assistant.
+  </Step>
+
+  <Step title="The agent prepares">
+    Before acting, the agent reads your task and does a few things automatically:
+
+    - **Rewrites the title** into a clear, actionable summary so you always know what the agent understood.
+    - **Identifies the required integration** — Gmail for email tasks, Calendar for scheduling, web search for research, and so on.
+    - **Asks a clarifying question** if something is ambiguous and the answer would meaningfully change the outcome. Short clarifications appear inline; you can answer or skip.
+  </Step>
+
+  <Step title="The agent executes">
+    With context in hand, the agent calls the real tools connected to your accounts — reading your contacts to find an email address, searching the web for current information, drafting a calendar invite, and so on. Every step is streamed live into the **Activity** feed as it happens, so you can follow along in real time without polling or refreshing.
+  </Step>
+
+  <Step title="The agent pauses for approval">
+    Before taking any irreversible action — sending an email, creating an event, posting a message, submitting a form — the agent stops and presents an **approval card** showing exactly what it intends to do. You see the full content: the email subject and body, the event title and time, the message text, and so on.
+  </Step>
+
+  <Step title="You approve, edit, or cancel">
+    You have full control over every approval:
+
+    - **Approve** — the agent proceeds with the action as shown.
+    - **Rewrite** — type feedback and the agent regenerates the content before asking again.
+    - **Cancel** — the action is discarded; the task is marked as cancelled.
+
+    After your decision, the agent resumes and completes any remaining steps.
+  </Step>
+
+  <Step title="You're notified when it's done">
+    When the task finishes, Hermes Agent sends a **push notification** and updates the **Live Activity** on your Lock Screen and in the Dynamic Island. The notification summarizes what was done, and tapping it takes you straight to the completed task.
+  </Step>
+</Steps>
+
+## Real-time activity
+
+The Activity feed inside each task is your window into what the agent is doing at any moment. As the agent works, each step appears as it happens — you don't need to refresh.
+
+Common activity step types include:
+
+| Step type | What it means |
+|---|---|
+| **Search** | The agent queried the web or a connected service for information. |
+| **Draft** | The agent composed content — an email body, a calendar description, a document section. |
+| **Send / Create / Post** | The agent executed an approved action and confirms it succeeded. |
+| **Memory update** | The agent noted a new fact about you or your preferences for future use. |
+| **Question** | The agent needs a clarification from you before it can continue. |
+| **Error / Retry** | A tool call failed; the agent is retrying or asking how to proceed. |
+
+You can scroll back through the full activity log for any task at any time, even after it's complete.
+
+## Approvals and interactions
+
+Approvals are the primary way you stay in control of your agent. There are three kinds of interaction that may appear during a task:
+
+<Accordion title="Approval card (send / create / post)">
+  When the agent is ready to take an irreversible action, it renders a full preview of that action. For an email, you see the **To**, **Subject**, and **Body** fields exactly as they will be sent. Tap **Send** to confirm, **Rewrite** to request changes with a note, or **Cancel** to discard.
+</Accordion>
+
+<Accordion title="Choice prompt">
+  When the agent identifies multiple reasonable paths forward, it may present a short list of options for you to choose from — for example, two candidate meeting times or three versions of a subject line. Tap your preferred option to continue.
+</Accordion>
+
+<Accordion title="Free-form reply">
+  When the agent needs information it can't infer — a name, a date, a preference — it asks an open-ended question in the Activity feed. Type your answer and tap **Reply**; the agent incorporates your response and continues.
+</Accordion>
+
+## Agent memory
+
+Hermes Agent builds a personal memory across tasks. When the agent learns a useful fact — your preferred email sign-off, your landlord's name and email address, your lunch preferences — it stores it in your **Memory Passbook** so it doesn't have to ask again in future tasks.
+
+Memory is always visible and editable. Go to **Settings > Memory** to review everything the agent has stored, edit individual entries, or delete anything you'd like it to forget. The agent uses memory to personalize its output, but you remain in full control of what it knows.
+
+See the [Memory & Passbook](/using-the-app/memory-passbook) page for a full walkthrough of how to manage your agent's memory.
+
+## Live Activity & notifications
+
+Hermes Agent keeps you updated without requiring you to stay in the app.
+
+- **Dynamic Island** — while a task is actively running, the Dynamic Island shows a compact progress indicator. Tap it to jump directly to the task.
+- **Lock Screen widget** — an expanded Live Activity on your Lock Screen shows the current step and overall task status while the agent is working.
+- **Push notifications** — when a task completes (or needs your attention), you receive a push notification summarizing the outcome. Tapping the notification opens the task directly.
+
+Live Activities and notifications require iOS 16.1 or later for Lock Screen support, and an iPhone 14 Pro or later for Dynamic Island support. Push notifications must be enabled — see [Quick Start](/quickstart) for setup instructions.

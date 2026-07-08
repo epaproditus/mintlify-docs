@@ -1,0 +1,145 @@
+---
+title: "BYO Connector: Use Your Own Hermes Gateway"
+sidebarTitle: "BYO Connector"
+description: "Connect Hermes Agent to your own self-hosted Hermes gateway. Keep your model keys, OAuth connections, and memory files on your own infrastructure."
+---
+
+BYO Connector mode lets you run your own Hermes gateway — on a VPS, a home server, or a Tailscale node — while still using the Hermes Agent iOS app for task creation and real-time updates. The connector is a lightweight process that bridges your local Hermes instance to the managed Doit sync layer. Your model keys, OAuth tokens, and memory files never leave your own machine.
+
+## Prerequisites
+
+Before pairing, make sure you have the following in place:
+
+- A working Hermes gateway (see the [Hermes Agent docs](https://hermes-agent.nousresearch.com/docs/))
+- Python 3.11+
+- SSH access to the machine running Hermes
+- Outbound internet access from that machine (HTTPS on port 443)
+
+## Pairing in the app
+
+<Steps>
+  <Step title="Tap Connect my Hermes">
+    On the Hermes Agent launch screen, tap **Connect my Hermes** to enter BYO Connector mode.
+  </Step>
+  <Step title="Create an anonymous identity">
+    The app creates an anonymous identity for you. No Apple account is required for BYO Connector mode.
+  </Step>
+  <Step title="View the generated command">
+    The **Pair your Hermes connector** screen appears and displays a generated connector command pre-filled with your connector token.
+  </Step>
+  <Step title="Copy the command">
+    Tap **Copy** to copy the full connector command to your clipboard.
+  </Step>
+  <Step title="Run the command on your server">
+    SSH into the machine running Hermes and paste the command into your terminal.
+  </Step>
+  <Step title="Wait for confirmation">
+    Watch the app — once the connector establishes contact you will see **Connector found**. Pairing is complete.
+  </Step>
+</Steps>
+
+## Running the connector
+
+<Tabs>
+  <Tab title="Installer (recommended)">
+    The installer script handles everything in one step. Set the four environment variables below, then run the command:
+
+    ```bash
+    DOIT_SUPABASE_URL="https://YOUR_PROJECT.supabase.co" \
+    DOIT_SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY" \
+    DOIT_CONNECTOR_TOKEN="doit_conn_..." \
+    DOIT_HERMES_URL="http://127.0.0.1:8643" \
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/epaproditus/doit/main/scripts/install-byo-connector.sh)"
+    ```
+
+    The installer clones the `doit` repository, creates an isolated Python virtual environment, installs all dependencies, verifies that your Hermes gateway responds at the specified URL, and writes a `systemd` service unit so the connector starts automatically on reboot.
+  </Tab>
+  <Tab title="Manual">
+    If you prefer to set things up yourself, clone the repository and run the connector module directly:
+
+    ```bash
+    git clone https://github.com/epaproditus/doit.git
+    cd doit/runner
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+    python3 -m runner.connector \
+      --supabase-url "https://YOUR_PROJECT.supabase.co" \
+      --supabase-anon-key "YOUR_SUPABASE_ANON_KEY" \
+      --connector-token "doit_conn_..." \
+      --hermes-url "http://127.0.0.1:8643" \
+      --hermes-api-key "YOUR_LOCAL_HERMES_API_KEY"
+    ```
+
+    <Note>
+      You must run this command from the `doit/runner` directory. Running it from the repo root will cause a `No module named runner` error.
+    </Note>
+  </Tab>
+</Tabs>
+
+## Verifying the connector
+
+After the installer finishes (or after you start the connector manually), confirm it is running and healthy:
+
+```bash
+sudo systemctl status doit-connector.service --no-pager
+sudo journalctl -u doit-connector.service --no-pager -n 50
+```
+
+Look for the line `BYO connector online` in the journal output. If you see it, the connector is authenticated and ready to relay tasks to your Hermes gateway.
+
+## Where to run the connector
+
+You have three common options for where to place the connector process:
+
+- **Same VPS as Hermes (simplest)** — Install the connector on the same machine as your Hermes gateway. Use `http://127.0.0.1:8643` as the Hermes URL. There is no network hop between the connector and Hermes.
+- **Tailscale or private network** — Run the connector on a separate node that can reach Hermes over Tailscale or a private LAN. Use the Tailscale hostname or private IP as the Hermes URL (e.g., `http://my-hermes-node:8643`).
+- **Local development machine** — The connector runs fine on your laptop. This is convenient for testing, but the connector must stay running for tasks to execute. It will stop when the machine sleeps or the terminal closes.
+
+## What the app shows in BYO mode
+
+When the connector is active, the iOS app reflects your local Hermes configuration:
+
+- **Model settings** display "managed by Hermes" — your model selection and API keys are controlled by your Hermes profiles, not the app
+- **Connections** are managed by your Hermes gateway; the app does not show the hosted Composio OAuth flow
+- **Memory / Passbook** shows guidance for local memory management rather than the hosted memory store
+- **Push notifications and Live Activities** (APNs) still work — the sync layer handles delivery regardless of where Hermes runs
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="App stays on 'Waiting for connector'">
+    The app polls for the connector after you run the command. If it never advances:
+
+    - Confirm the connector process is running on your server (`systemctl status doit-connector.service`)
+    - Verify the `DOIT_CONNECTOR_TOKEN` value in your command exactly matches what the app generated
+    - Check that the machine has outbound HTTPS access (port 443) to the Supabase sync endpoint
+  </Accordion>
+  <Accordion title="All connection attempts failed">
+    This error means the connector started but cannot reach Hermes. Run the following from the connector machine to check Hermes health directly:
+
+    ```bash
+    curl http://127.0.0.1:8643/health
+    ```
+
+    If the request times out or returns an error, Hermes is not running or is bound to a different address or port. Update `DOIT_HERMES_URL` to match.
+  </Accordion>
+  <Accordion title="Python says 'No module named runner'">
+    You are running the connector command from the wrong directory. Change into the `doit/runner` directory before invoking the module:
+
+    ```bash
+    cd doit/runner
+    python3 -m runner.connector ...
+    ```
+  </Accordion>
+  <Accordion title="Tasks don't run">
+    If the connector is online but tasks silently fail to execute, the most common causes are:
+
+    - The `--hermes-url` does not match the address Hermes is actually listening on
+    - The `--hermes-api-key` is incorrect or missing — check your Hermes profile configuration for the expected bearer key
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+  If you are unsure of your Hermes host, port, or API key, use the **Copy Hermes prompt** button in the app. Paste the copied prompt directly into your Hermes chat — it will help Hermes surface the right values from its own configuration.
+</Tip>
