@@ -138,6 +138,19 @@ When the connector is active, the iOS app reflects your local Hermes configurati
     - The `--hermes-url` does not match the address Hermes is actually listening on
     - The `--hermes-api-key` is incorrect or missing — check your Hermes profile configuration for the expected bearer key
   </Accordion>
+  <Accordion title="pip fails with 'externally-managed-environment'">
+    Your system Python is managed by the OS and does not allow global `pip install`. Use a virtual environment instead:
+
+    ```bash
+    cd /path/to/doit/runner
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+    ```
+  </Accordion>
+  <Accordion title="Integrations don't work in BYO mode">
+    Hermes Agent does not create hosted OAuth sessions for BYO Connector users. Your Hermes profile must already have the required tools and connections configured. See the [Hermes tools documentation](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools) and [MCP integration guide](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp) to set them up on your Hermes gateway.
+  </Accordion>
 </AccordionGroup>
 
 <Tip>

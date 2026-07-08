@@ -17,6 +17,8 @@ This page is the canonical reference for every configuration variable used in se
 | `DOIT_WAITLIST_URL` | URL displayed to users who open the app without a valid invite code |
 | `DOIT_DEVELOPMENT_TEAM` | Apple Developer team ID used for code signing |
 | `DOIT_BUNDLE_ID` | Main app bundle identifier (e.g., `com.yourcompany.hermes`) |
+| `DOIT_TESTS_BUNDLE_ID` | Bundle identifier for the unit test target |
+| `DOIT_UITESTS_BUNDLE_ID` | Bundle identifier for the UI test target |
 | `DOIT_WIDGET_BUNDLE_ID` | Live Activity widget bundle identifier (e.g., `com.yourcompany.hermes.widget`) |
 
 ## Runner environment variables
@@ -77,6 +79,7 @@ These variables are only used when `BYO_CONNECTOR_MODE=true`. In this mode the r
 | `DOIT_CONNECTOR_USER_ID` | The Supabase user ID associated with the connector token |
 | `DOIT_CONNECTOR_HERMES_URL` | URL of the local Hermes gateway on the user's machine (default: `http://127.0.0.1:8643`) |
 | `DOIT_CONNECTOR_HERMES_API_KEY` | Bearer key required to authenticate requests to the user's Hermes gateway |
+| `DOIT_CONNECTOR_PROFILE_NAME` | Optional Hermes profile name to use for this connector (e.g., `byo-hermes`) |
 
 <Warning>
   Never commit `runner/.env` or `ios/doit/Config/Local.xcconfig` to git. Both files contain secrets that would give anyone who reads them full access to your Supabase project and model provider accounts. Both paths are included in the repository's `.gitignore`, but double-check before pushing to a fork or mirror.

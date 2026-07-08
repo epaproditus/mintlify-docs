@@ -1,5 +1,5 @@
 ---
-title: "Hermes Agent FAQ: Common Questions Answered"
+title: "Hermes Agent: Setup, Tasks, and Troubleshooting FAQ"
 sidebarTitle: "FAQ"
 description: "Answers to common questions about Hermes Agent: invite codes, supported devices, task limits, integration issues, memory, and troubleshooting."
 ---
@@ -28,6 +28,14 @@ This page covers the most common questions users ask about Hermes Agent — from
 
 <Accordion title="Why is my task stuck on 'Preparing'?">
   The preparation pass rewrites your task into a structured plan and may ask a clarifying question before execution begins. Check the task detail view — if the agent needs more information, you'll see a message asking for it. Reply to that message to continue.
+</Accordion>
+
+<Accordion title="My task is stuck on 'Queued' and never starts.">
+  A task stays in the Queued state when no runner picks it up. In hosted mode, this is usually temporary — wait a moment and pull to refresh. If the task remains Queued for more than a couple of minutes, the runner may be temporarily unavailable; try cancelling and re-submitting the task. In BYO Connector mode, confirm that your connector process is still running on your server and that it connected successfully (check the logs with `journalctl -u doit-connector -n 50`). A task also returns to Queued after you approve an action card — this is normal; the runner resumes automatically.
+</Accordion>
+
+<Accordion title="Steps stopped appearing in the activity feed mid-run.">
+  This usually means the execution process encountered an error after the task started. In hosted mode, the runner will retry automatically — wait a few seconds and check whether new steps appear. If the task moves to a failed state, the detail view will show an error message. In BYO Connector mode, check whether the Hermes process is still running on your server (`journalctl -u hermes-<name> -n 50`). If Hermes exited mid-run, restart it and tap **Do it** again to resume from where execution stalled.
 </Accordion>
 
 <Accordion title="Why does the agent stop and say 'Needs you'?">
